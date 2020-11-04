@@ -23,6 +23,11 @@ BUILDPACK_DIR=$(cd "$(dirname "$0")"; cd ..; pwd)
 # Load formating tools
 source "$BUILDPACK_DIR/bin/common.sh"
 
+# Debug ENV_DIR
+topic "Debugging ENV_DIR"
+echo "The ENV_DIR folder is set to $ENV_DIR"
+ls -la $ENV_DIR
+
 # Setup apt environment
 APT_DIR="$BUILD_DIR/.apt"
 APT_CACHE_DIR="$CACHE_DIR/apt/cache"
@@ -168,6 +173,7 @@ if [ -f "$ENV_DIR/DD_APM_ENABLED" ]; then
 fi
 
 # If the process agent hasn't been explicitly enabled, delete the agent
+topic "Debugging DD_PROCESS_AGENT"
 if [ -f "$ENV_DIR/DD_PROCESS_AGENT" ]; then
   DD_PROCESS_AGENT=$(cat "$ENV_DIR/DD_PROCESS_AGENT")
   echo "DD_PROCESS_AGENT set to $DD_PROCESS_AGENT"
