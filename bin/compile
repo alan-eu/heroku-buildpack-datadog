@@ -84,6 +84,15 @@ else
   mkdir -p "$APT_STATE_DIR/lists/partial"
 fi
 
+# heroku-16 stack deprecation warning
+if [ "$STACK" = "heroku-16" ]; then
+  topic "*********************************** WARNING ************************************"
+  echo "Heroku-16 stack has been deprecated by Heroku and will be end-of-life May 1st 2021." | indent
+  echo "From June 1st 2021, Heroku will no longer allow builds for Heroku-16 applications." | indent
+  echo "Upgrade your application to a newer stack (heroku-18 or heroku-20)." | indent
+  echo "********************************************************************************" | indent
+fi
+
 # Install dependencies
 topic "Updating apt caches for dependencies"
 apt-get $APT_OPTIONS update | indent
