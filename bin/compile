@@ -92,13 +92,15 @@ apt-get $APT_OPTIONS update | indent
 # Install GPG key
 topic "Install gpg key for Datadog APT Repository"
 APT_KEYRING="$CACHE_DIR/apt/trusted.gpg"
+APT_KEYBOX="$CACHE_DIR/apt/temp.gpg"
 GPG_KEY_FILE="$BUILDPACK_DIR/etc/datadog.gpg"
 GPG_HOME_DIR="$BUILD_DIR/.gnupg"
 mkdir -p "$GPG_HOME_DIR"
-gpg --ignore-time-conflict --no-options --no-default-keyring --homedir "$GPG_HOME_DIR" --keyring "$APT_KEYRING" --import "$GPG_KEY_FILE" | indent
+gpg --ignore-time-conflict --no-options --no-default-keyring --homedir "$GPG_HOME_DIR" --keyring "$APT_KEYBOX" --trustdb "$APT_KEYRING" --import "$GPG_KEY_FILE" | indent
 
 file "$APT_KEYRING"
-gpg --no-default-keyring --keyring "$APT_KEYRING" --export > $APT_KEYRING
+file "$APT_KEYBOX"
+gpg --no-default-keyring --keyring "$APT_KEYBOX" --export > $APT_KEYRING
 file "$APT_KEYRING"
 
 
