@@ -98,7 +98,7 @@ GPG_HOME_DIR="$BUILD_DIR/.gnupg"
 mkdir -p "$GPG_HOME_DIR"
 
 
-if [[ $STACK == "heroku-16" ]]
+if [[ $STACK == "heroku-16" ]]; then
   gpg --ignore-time-conflict --no-options --no-default-keyring --homedir "$GPG_HOME_DIR" --keyring "$APT_KEYRING" --import "$GPG_KEY_FILE" | indent
   gpg --no-default-keyring --keyring "$APT_KEYBOX" --export > $APT_KEYRING
 else
