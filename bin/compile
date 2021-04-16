@@ -98,9 +98,12 @@ GPG_HOME_DIR="$BUILD_DIR/.gnupg"
 mkdir -p "$GPG_HOME_DIR"
 gpg --ignore-time-conflict --no-options --no-default-keyring --homedir "$GPG_HOME_DIR" --keyring "$APT_KEYBOX" --trustdb "$APT_KEYRING" --import "$GPG_KEY_FILE" | indent
 
+topic  "keyring"
 file "$APT_KEYRING"
+topic "keybox"
 file "$APT_KEYBOX"
 gpg --no-default-keyring --keyring "$APT_KEYBOX" --export > $APT_KEYRING
+topic "keyring"
 file "$APT_KEYRING"
 
 
