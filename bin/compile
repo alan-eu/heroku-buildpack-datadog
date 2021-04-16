@@ -96,8 +96,15 @@ APT_KEYBOX="$CACHE_DIR/apt/temp.gpg"
 GPG_KEY_FILE="$BUILDPACK_DIR/etc/datadog.gpg"
 GPG_HOME_DIR="$BUILD_DIR/.gnupg"
 mkdir -p "$GPG_HOME_DIR"
-gpg --ignore-time-conflict --no-options --no-default-keyring --homedir "$GPG_HOME_DIR" --keyring "$APT_KEYBOX" --trustdb "$APT_KEYRING" --import "$GPG_KEY_FILE" | indent
-gpg --no-default-keyring --keyring "$APT_KEYBOX" --export > $APT_KEYRING
+
+
+if [[ $STACK == "heroku-16" ]]
+  gpg --ignore-time-conflict --no-options --no-default-keyring --homedir "$GPG_HOME_DIR" --keyring "$APT_KEYRING" --import "$GPG_KEY_FILE" | indent
+  gpg --no-default-keyring --keyring "$APT_KEYBOX" --export > $APT_KEYRING
+else
+  gpg --ignore-time-conflict --no-options --no-default-keyring --homedir "$GPG_HOME_DIR" --keyring "$APT_KEYBOX" --trustdb "$APT_KEYRING" --import "$GPG_KEY_FILE" | indent
+  gpg --no-default-keyring --keyring "$APT_KEYBOX" --export > $APT_KEYRING
+fi
 
 # Prior to Agent 6.14 there was only 1 python version
 DD_AGENT_BASE_VERSION="6.14"
