@@ -100,7 +100,6 @@ mkdir -p "$GPG_HOME_DIR"
 
 if [[ $STACK == "heroku-16" ]]; then
   gpg --ignore-time-conflict --no-options --no-default-keyring --homedir "$GPG_HOME_DIR" --keyring "$APT_KEYRING" --import "$GPG_KEY_FILE" | indent
-  gpg --no-default-keyring --keyring "$APT_KEYBOX" --export > $APT_KEYRING
 else
   gpg --ignore-time-conflict --no-options --no-default-keyring --homedir "$GPG_HOME_DIR" --keyring "$APT_KEYBOX" --trustdb "$APT_KEYRING" --import "$GPG_KEY_FILE" | indent
   gpg --no-default-keyring --keyring "$APT_KEYBOX" --export > $APT_KEYRING
