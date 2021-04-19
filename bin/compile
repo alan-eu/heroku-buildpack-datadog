@@ -92,7 +92,7 @@ GPG_KEY_FILE="$BUILDPACK_DIR/etc/datadog.gpg"
 GPG_HOME_DIR="$BUILD_DIR/.gnupg"
 mkdir -p "$GPG_HOME_DIR"
 
-if [ -f $APT_KEYRING]; then
+if [ -f $APT_KEYRING ]; then
   rm $APT_KEYRING
 fi
 
