@@ -84,11 +84,6 @@ else
   mkdir -p "$APT_STATE_DIR/lists/partial"
 fi
 
-# Install dependencies
-topic "Updating apt caches for dependencies"
-apt-get $APT_OPTIONS update | indent
-
-
 # Install GPG key
 topic "Install gpg key for Datadog APT Repository"
 APT_KEYRING="$CACHE_DIR/apt/trusted.gpg"
@@ -96,7 +91,6 @@ APT_KEYBOX="$CACHE_DIR/apt/temp.gpg"
 GPG_KEY_FILE="$BUILDPACK_DIR/etc/datadog.gpg"
 GPG_HOME_DIR="$BUILD_DIR/.gnupg"
 mkdir -p "$GPG_HOME_DIR"
-
 
 if [[ $STACK == "heroku-16" ]]; then
   topic "heroku 16"
