@@ -92,6 +92,10 @@ GPG_KEY_FILE="$BUILDPACK_DIR/etc/datadog.gpg"
 GPG_HOME_DIR="$BUILD_DIR/.gnupg"
 mkdir -p "$GPG_HOME_DIR"
 
+if [ -f $APT_KEYRING]; then
+  rm $APT_KEYRING
+fi
+
 if [[ $STACK == "heroku-16" ]]; then
   topic "heroku 16"
   gpg --ignore-time-conflict --no-options --no-default-keyring --homedir "$GPG_HOME_DIR" --keyring "$APT_KEYRING" --import "$GPG_KEY_FILE" | indent
