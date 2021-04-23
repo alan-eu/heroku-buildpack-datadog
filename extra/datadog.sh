@@ -151,7 +151,7 @@ export DD_PYTHONPATH="$DD_DIR/embedded/lib:$DD_PYTHONPATH"
 
 echo "This is the dyno type: $DYNOTYPE"
 
-if [ "$DYNOTYPE" == "crontogo"* ]; then
+if [[ "$DYNOTYPE" == "crontogo"* ]]; then
   echo "This is a crontogo dynotype"
 fi
 
