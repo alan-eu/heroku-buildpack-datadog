@@ -149,14 +149,25 @@ fi
 # Export agent's PYTHONPATH be used by the agent-wrapper
 export DD_PYTHONPATH="$DD_DIR/embedded/lib:$DD_PYTHONPATH"
 
+echo "This is the dyno type: $DYNOTYPE"
+
+if [ "$DYNOTYPE" == "crontogo"* ]; then
+  echo "This is a crontogo dynotype"
+fi
+
+echo "This is disable value before sourcing: $DISABLE_DATADOG_AGENT"
+
 # Give applications a chance to modify env vars prior to running.
 # Note that this can modify existing env vars or perform other actions (e.g. modify the conf file).
 # For more information on variables and other things you may wish to modify, reference this script
 # and the Datadog Agent documentation: https://docs.datadoghq.com/agent
 PRERUN_SCRIPT="$APP_DATADOG/prerun.sh"
 if [ -e "$PRERUN_SCRIPT" ]; then
+  echo "Sourcing prerun"
   source "$PRERUN_SCRIPT"
 fi
+
+echo "This is disable value after sourcing: $DISABLE_DATADOG_AGENT"
 
 # Convert comma delimited tags from env vars to yaml
 if [ -n "$DD_TAGS" ]; then
